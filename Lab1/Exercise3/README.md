@@ -48,7 +48,7 @@ List all threads (i.e., CPUs), including their state (active or halted) and what
 
 所以.asm文件有助于调试、了解机器实际的执行过程。
 
-注意：
+**注意**：
 .asm文件中会包含.S中的变量数据的反汇编形式，形成了非法指令，如：
 ```
 gdt:

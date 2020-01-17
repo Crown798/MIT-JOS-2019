@@ -4,7 +4,7 @@
 
 >Add a backtrace command to the kernel monitor
 
-继续完善mon_backtrace()函数，输出信息中对于每个eip，应加上函数调用者的名字、源文件的名字、对应eip的行号、偏移量：
+要求： 继续完善mon_backtrace()函数，输出信息中对于每个eip，应加上函数调用者的名字、源文件的名字、对应eip的行号、偏移量：
 ```
 Stack backtrace:
   ebp f010ff78  eip f01008ae  args 00000001 f010ff8c 00000000 f0110580 00000000

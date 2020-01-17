@@ -1,6 +1,6 @@
 >Exercise 10. To become familiar with the C calling conventions on the x86, find the address of the test_backtrace function in obj/kern/kernel.asm, set a breakpoint there, and examine what happens each time it gets called after the kernel starts. How many 32-bit words does each recursive nesting level of test_backtrace push on the stack, and what are those words?
 
-在test_backtrace函数入口设置断点，检验每次该函数被调用后栈中内容的变化，每次压入了多少32位的字？这些字是什么内容？
+要求：在test_backtrace函数入口设置断点，检验每次该函数被调用后栈中内容的变化，每次压入了多少32位的字？这些字是什么内容？
 
 # 分析
 test_backtrace的源代码与反汇编：

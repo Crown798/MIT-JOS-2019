@@ -2,6 +2,8 @@
 
 >What is the first instruction after the new mapping is established that would fail to work properly if the mapping weren't in place? Comment out the movl %eax, %cr0 in kern/entry.S, trace into it, and see if you were right.
 
+要求：使用 GDB 验证开启分页功能的语句。
+
 # 结论
 语句`movl    %eax, %cr0`的作用就是开启分页模式，在执行这条语句之前，所有的线性地址直接等于物理地址，执行之后，线性地址需要经过MMU的映射才对应到物理地址。
 

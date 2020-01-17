@@ -1,7 +1,8 @@
 >Exercise 2. Use GDB's si (Step Instruction) command to trace into the ROM BIOS for a few more instructions, and try to guess what it might be doing. No need to figure out all the details - just the general idea of what the BIOS is doing first.
 
-使用GDB的si指令来跟踪BIOS的前几条指令，弄清楚BIOS一开始运行时做了什么。
+要求：使用GDB的si指令来跟踪BIOS的前几条指令，弄清楚BIOS一开始运行时做了什么。
 
+# 分析
 进入GDB：
 ```
 GNU gdb (GDB) 6.8-debian

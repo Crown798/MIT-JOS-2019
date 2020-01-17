@@ -1,6 +1,8 @@
 >Exercise 8. We have omitted a small fragment of code - the code necessary to print octal numbers using patterns of the form "%o". Find and fill in this code fragment.
 
-找到并完善格式化输出函数，使之可以输出八进制数。
+要求：找到并完善格式化输出函数，使之可以输出八进制数。
+
+# 分析
 
 格式化输出及控制台文件解读见实验笔记。
 

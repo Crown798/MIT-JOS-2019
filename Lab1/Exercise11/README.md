@@ -1,6 +1,6 @@
 >Exercise 11. Implement the backtrace function as specified above.
 
-补全回溯函数mon_backtrace()，输出格式如下：
+要求：补全回溯函数mon_backtrace()，输出格式如下：
 ```
 Stack backtrace:
   ebp f0109e58  eip f0100a62  args 00000001 f0109e80 f0109e98 f0100ed2 00000031
@@ -21,6 +21,8 @@ test_backtrace(int x)
 ```
 # 分析
 由之前的知识，我们知道栈帧中包含了需要输出的参数：ebp、eip、args，并且可以通过ebp可以在栈帧链中转换，获得栈中每个函数的参数。
+
+图4
 
 实验提供了内联汇编实现的read_ebp()函数，可以让我们方便获取寄存器ebp的值。inc/x86.h中：
 ```

@@ -2,6 +2,8 @@
 
 >Examine the 8 words of memory at 0x00100000 at the point the BIOS enters the boot loader, and then again at the point the boot loader enters the kernel. Why are they different? What is there at the second breakpoint? (You do not really need to use QEMU to answer this question. Just think.)
 
+要求： 使用 GDB 验证 boot loader 将 kernel 装入了地址 0x100000 处。
+
 # 结论
 当BIOS进入bootloader时，因为此时工作在实模式，0x10000以上的内存根本无法访问，所以内存中的内容应该为空。
 
