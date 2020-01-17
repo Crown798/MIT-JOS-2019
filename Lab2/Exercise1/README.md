@@ -20,11 +20,11 @@
 
 进入内核入口函数i386_init()时的物理内存分布如下：
 
-图1
+![图1](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab2/images/1.png?raw=true)
 
 执行完mem_init()后的物理内存如下：
 
-图2
+![图2](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab2/images/2.png?raw=true)
 
 至此编译启动后，check_page_free_list() and check_page_alloc() 会输出测试成功信息。
 

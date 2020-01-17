@@ -18,7 +18,7 @@ Cur. Page Table 部分在mem_init()开始时即被设置，`kern_pgdir[PDX(UVPT)
 
 设置完成后当前内核页表 kern_pgdir 包含的映射关系如图：
 
-图3
+![图3](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab2/images/3.png?raw=true)
 
 至此，编译启动后，通过check_kern_pgdir() and check_page_installed_pgdir()的测试。
 
