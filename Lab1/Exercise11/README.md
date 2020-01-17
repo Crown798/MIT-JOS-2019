@@ -22,7 +22,7 @@ test_backtrace(int x)
 # 分析
 由之前的知识，我们知道栈帧中包含了需要输出的参数：ebp、eip、args，并且可以通过ebp可以在栈帧链中转换，获得栈中每个函数的参数。
 
-图4
+![图4](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab1/images/4.png?raw=true)
 
 实验提供了内联汇编实现的read_ebp()函数，可以让我们方便获取寄存器ebp的值。inc/x86.h中：
 ```

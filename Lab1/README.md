@@ -208,7 +208,7 @@ objdump -f obj/kern/kernel
 
 这一步执行完后CPU，内存，磁盘可以抽象如下：
 
-图1
+![图1](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab1/images/1.png?raw=true)
 
 > Exercise 6. 使用 GDB 验证 boot loader 将 kernel 装入了地址 0x100000 处。
 
@@ -252,7 +252,7 @@ pde_t entry_pgdir[NPDENTRIES] = {           //页目录表。这是uint32_t类�
 
 存在如下调用关系：
 
-图2
+![图2](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab1/images/2.png?raw=true)
 
 ### 3.2.1 kern/console.c
 本文件中包括底层硬件相关的Serial I/O ， Parallel port output，CGA/VGA display output，Keyboard input部分，中层device-independent console部分，高层console I/O部分。
@@ -383,7 +383,7 @@ GCC 将 C 语言程序编译为汇编语言程序时，会遵循一定的规范�
 
 例子：
 
-图3
+![图3](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab1/images/3.png?raw=true)
 
 > Excercise 9. kernel的栈在何时、何地、如何被初始化？栈指针的初始位置？
 
