@@ -299,7 +299,7 @@ trap_init_percpu(void)
 
 总结各种寄存器：
 
-图1
+![图1](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab3/images/1.png?raw=true)
 
 ## 1.6 Types of Exceptions and Interrupts
 x86 处理器内部产生的同步异常使用 0-31 号中断向量，例如缺页异常使用 14 号。
