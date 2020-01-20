@@ -438,5 +438,23 @@ sys_cputs()又会调用lib/syscall.c中的syscall()，该函数传参、引发�
 
 > Exercise 10. 与实验9类似。
 
+# 3 Conclusion
+
+这一部分涉及用户环境的管理。
+
+主要内容包括：设置管理用户环境的数据结构、创建第一个用户环境并装载运行第一个程序镜像，完善系统调用等异常的处理。
+
+## 3.1 用户环境/进程
+
+1. 内核维护一个名叫envs的Env数组，每个Env结构对应一个进程，Env结构最重要的字段有Trapframe env_tf（该字段中断发生时可以保持寄存器的状态），pde_t *env_pgdir（该进程的页目录地址）。
+
+2. 定义了env_init()，env_create()等函数，初始化Env结构，将Env结构Trapframe env_tf中的寄存器值设置到寄存器中，从而执行该Env。
+
+## 3.2 中断/异常机制
+
+1. 创建异常处理函数，建立并加载IDT，使JOS能支持中断处理。内核态和用户态转换方式：通过中断机制可以从用户环境进入内核态。使用iret指令从内核态回到用户环境。
+
+2. 完善 Page Faults, Breakpoints Exceptions, 以及 System Calls 这三种异常发生时的处理函数。
+
 
 
