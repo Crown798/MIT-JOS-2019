@@ -191,7 +191,7 @@ gs             0x23 35
 (gdb) si                          //单步执行，指令应该执行iret指令
 => 0x800020:    cmp    $0xeebfe000,%esp
 0x00800020 in ?? ()
-(gdb) info registers              //执行iret指令后，差看寄存器
+(gdb) info registers              //执行iret指令后，查看寄存器
 eax            0x0  0
 ecx            0x0  0
 edx            0x0  0
