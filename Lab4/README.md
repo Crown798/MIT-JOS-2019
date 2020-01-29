@@ -261,7 +261,7 @@ fault_va            <-- %esp when handler is run
 
 进程的页表被映射在地址 UVPT 以方便用户能够读取。页表自映射机制如下：利用了硬件的固定寻址机制，即固定的三次计算 pd = lcr3(); pt = *(pd+4*PDX); page = *(pt+4*PTX)，从而找到某一个 page table 所在的物理页。https://pdos.csail.mit.edu/6.828/2018/labs/lab4/uvpt.html。如图：
 
-图2
+![图2](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab4/images/2.png?raw=true)
 
 >Exercise 12. 完善 lib/fork.c 中的 fork、duppages、pgfault 函数。
 
