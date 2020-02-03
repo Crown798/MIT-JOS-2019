@@ -55,7 +55,7 @@ struct Super {
 ```
 磁盘布局结构如图：
 
-图1
+![图1](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab5/images/1.png?raw=true)
 
 # 1.4 File Meta-data
 JOS 文件系统使用 struct File 描述文件，该结构包含文件名，大小，类型，文件内容的block号。
@@ -64,7 +64,7 @@ JOS 文件系统采用混合索引：struct File 的 f_direct 数组保存前 ND
 
 File结构如图：
 
-图2
+![图2](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab5/images/2.png?raw=true)
 
 File结构定义在inc/fs.h中：
 ```
@@ -179,7 +179,7 @@ FS 进程通过进程间函数调用(remote procedure call / RPC)对其它进程
 
 文件系统总结如图：
 
-图三
+![图三](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab5/images/3.png?raw=true)
 
 文件描述符层数据结构：
 ```
