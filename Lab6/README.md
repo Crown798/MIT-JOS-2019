@@ -52,7 +52,7 @@ E1000 模拟的相关实现代码位于 hw/net/e1000.c。
 # 2 The Network Server
 JOS 整体网络服务系统结构如下：
 
-图1
+![图1](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab6/images/1.png?raw=true)
 
 上图绿颜色的部分是本lab需要实现的部分：
 1. E1000网卡驱动，对外提供两个系统调用，用来接收和发送数据。
@@ -171,11 +171,11 @@ E1000使用DMA技术直接读写内存，不需要CPU参与。
 
 发送队列的环形结构：
 
-图2
+![图2](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab6/images/2.png?raw=true)
 
 描述符结构：
 
-图3
+![图3](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab6/images/3.png?raw=true)
 
 the legacy transmit descriptor 结构：
 ```
@@ -224,7 +224,7 @@ QEMU 启动后，输入` tcpdump -XXnr qemu.pcap `来检查所发送的数据。
 
 发送队列和接收队列总结：
 
-图4
+![图4](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab6/images/4.png?raw=true)
 
 其中仅 E1000 寄存器使用的空间（如队列头尾指针等）位于MMIOBASE区域，队列实际占用空间及数据缓冲空间由内核统一分配。
 
@@ -252,7 +252,7 @@ struct jif_pkt {
 
 数据发送流程总结：
 
-图5
+![图5](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab6/images/5.png?raw=true)
 
 测试。输入` make E1000_DEBUG=TXERR,TX run-net_testoutput `，输出：
 ```
