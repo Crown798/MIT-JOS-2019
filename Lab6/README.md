@@ -554,24 +554,24 @@ umain(int argc, char **argv)
 
 	binaryname = "jhttpd";
 
-	// Create the TCP socket                // 配置端口
+	// Create the TCP socket                // 分配socket
 	if ((serversock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
 		die("Failed to create socket");
 
-	// Construct the server sockaddr_in structure
+	// Construct the server sockaddr_in structure  /* 初始化服务端地址 */
 	memset(&server, 0, sizeof(server));		// Clear struct
 	server.sin_family = AF_INET;			// Internet/IP
 	server.sin_addr.s_addr = htonl(INADDR_ANY);	// IP address
 	server.sin_port = htons(PORT);			// server port
 
 	// Bind the server socket
-	if (bind(serversock, (struct sockaddr *) &server,
+	if (bind(serversock, (struct sockaddr *) &server,   //绑定socket到服务端地址
 		 sizeof(server)) < 0)
 	{
 		die("Failed to bind the server socket");
 	}
 
-	// Listen on the server socket          // 监听端口
+	// Listen on the server socket          // 监听socket
 	if (listen(serversock, MAXPENDING) < 0)
 		die("Failed to listen on server socket");
 
@@ -580,19 +580,23 @@ umain(int argc, char **argv)
 	while (1) {
 		unsigned int clientlen = sizeof(client);
 		// Wait for client connection
-		if ((clientsock = accept(serversock,
+		if ((clientsock = accept(serversock,          //接收一个客户端tcp连接，阻塞式函数，分配一个connected socket
 					 (struct sockaddr *) &client,
 					 &clientlen)) < 0)
 		{
 			die("Failed to accept client connection");
 		}
-		handle_client(clientsock);    // 读取请求、解析请求、发送文件
+		handle_client(clientsock);    // http相关，读取请求、解析请求、发送文件
 	}
 
 	close(serversock);
 }
 ```
+其中，TCP 部分的 socket 编程见 Lwip 实现。tcp 服务端工作原理如图：
 
+图6
+
+http 相关的处理在函数 handle_client 中：
 ```
 static void
 handle_client(int sock)
@@ -606,14 +610,14 @@ handle_client(int sock)
 	while (1)
 	{
 		// Receive message
-		if ((received = read(sock, buffer, BUFFSIZE)) < 0)   //读取请求
+		if ((received = read(sock, buffer, BUFFSIZE)) < 0)   //读取http请求
 			panic("failed to read");
 
 		memset(req, 0, sizeof(*req));
 
 		req->sock = sock;
 
-		r = http_request_parse(req, buffer);    //解析请求
+		r = http_request_parse(req, buffer);    //解析http请求
 		if (r == -E_BAD_REQ)
 			send_error(req, 400);
 		else if (r < 0)
