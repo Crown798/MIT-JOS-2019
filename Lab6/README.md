@@ -484,3 +484,153 @@ ENTRY(jos_longjmp)
 ```
 
 ## 4.4 The Web Server
+一个最最简单的 Web Server 可以接收客户端请求，并将所请求的文件发送给客户端。
+
+文件 user/httpd.c 已实现了该 Web Server 的整体框架，以及接收并解析请求的部分。
+
+struct http_request 结构如下：
+```
+struct http_request {
+	int sock;
+	char *url;
+	char *version;
+}
+```
+
+解析http请求函数：根据请求，解析出一个 struct http_request 结构。
+```
+// given a request, this function creates a struct http_request
+static int
+http_request_parse(struct http_request *req, char *request)
+{
+	const char *url;
+	const char *version;
+	int url_len, version_len;
+
+	if (!req)
+		return -1;
+
+	if (strncmp(request, "GET ", 4) != 0)
+		return -E_BAD_REQ;
+
+	// skip GET
+	request += 4;
+
+	// get the url
+	url = request;
+	while (*request && *request != ' ')
+		request++;
+	url_len = request - url;
+
+	req->url = malloc(url_len + 1);
+	memmove(req->url, url, url_len);
+	req->url[url_len] = '\0';
+
+	// skip space
+	request++;
+
+	version = request;
+	while (*request && *request != '\n')
+		request++;
+	version_len = request - version;
+
+	req->version = malloc(version_len + 1);
+	memmove(req->version, version, version_len);
+	req->version[version_len] = '\0';
+
+	// no entity parsing
+
+	return 0;
+}
+```
+
+Web Server 运行一个无限循环，监听端口、读取请求、解析请求、发送文件。
+```
+void
+umain(int argc, char **argv)
+{
+	int serversock, clientsock;
+	struct sockaddr_in server, client;
+
+	binaryname = "jhttpd";
+
+	// Create the TCP socket                // 配置端口
+	if ((serversock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
+		die("Failed to create socket");
+
+	// Construct the server sockaddr_in structure
+	memset(&server, 0, sizeof(server));		// Clear struct
+	server.sin_family = AF_INET;			// Internet/IP
+	server.sin_addr.s_addr = htonl(INADDR_ANY);	// IP address
+	server.sin_port = htons(PORT);			// server port
+
+	// Bind the server socket
+	if (bind(serversock, (struct sockaddr *) &server,
+		 sizeof(server)) < 0)
+	{
+		die("Failed to bind the server socket");
+	}
+
+	// Listen on the server socket          // 监听端口
+	if (listen(serversock, MAXPENDING) < 0)
+		die("Failed to listen on server socket");
+
+	cprintf("Waiting for http connections...\n");
+
+	while (1) {
+		unsigned int clientlen = sizeof(client);
+		// Wait for client connection
+		if ((clientsock = accept(serversock,
+					 (struct sockaddr *) &client,
+					 &clientlen)) < 0)
+		{
+			die("Failed to accept client connection");
+		}
+		handle_client(clientsock);    // 读取请求、解析请求、发送文件
+	}
+
+	close(serversock);
+}
+```
+
+```
+static void
+handle_client(int sock)
+{
+	struct http_request con_d;
+	int r;
+	char buffer[BUFFSIZE];
+	int received = -1;
+	struct http_request *req = &con_d;
+
+	while (1)
+	{
+		// Receive message
+		if ((received = read(sock, buffer, BUFFSIZE)) < 0)   //读取请求
+			panic("failed to read");
+
+		memset(req, 0, sizeof(*req));
+
+		req->sock = sock;
+
+		r = http_request_parse(req, buffer);    //解析请求
+		if (r == -E_BAD_REQ)
+			send_error(req, 400);
+		else if (r < 0)
+			panic("parse failed");
+		else
+			send_file(req);                 //发送文件
+
+		req_free(req);
+
+		// no keep alive
+		break;
+	}
+
+	close(sock);
+}
+```
+
+> Exercise 13. 完善函数 send_file and send_data，以实现 Web Server 的文件发送部分。
+
+完成后输入`make run-httpd-nox`，在宿主机浏览器中输入`http://localhost:26002`，浏览器会显示404。然后输入`http://localhost:26002/index.html`， Web Server 将会返回一个html文件，网页内容为`cheesy web page`。
