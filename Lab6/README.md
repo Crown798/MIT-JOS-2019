@@ -594,7 +594,7 @@ umain(int argc, char **argv)
 ```
 其中，TCP 部分的 socket 编程见 Lwip 实现。tcp 服务端工作原理如图：
 
-图6
+![图6](https://github.com/Crown798/MIT-JOS-2019/blob/master/Lab6/images/6.png?raw=true)
 
 http 相关的处理在函数 handle_client 中：
 ```
